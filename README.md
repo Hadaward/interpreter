@@ -6,4 +6,4 @@ A code interpreter written in JavaScript contains lexer to generate the token li
 - [x] Token List
 - [x] Lexer
 - [x] Parser
-- [ ] Interpreter
+- [x] Interpreter

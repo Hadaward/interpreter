@@ -1,6 +1,8 @@
 const Lexer = require('./lexer');
 const Parser = require('./parser');
+const Context = require('./context');
 const Exception = require('./exception');
+const Interpreter = require('./interpreter');
 
 module.exports = {
 	run: function(inputText) {
@@ -20,6 +22,16 @@ module.exports = {
 			return;
 		}
 		
-		console.log(parserResult)
+		const globals = new Context('<program>');
+		const interpreter = new Interpreter();
+		
+		const result = interpreter.visit(parserResult, globals);
+		
+		if (result.error instanceof Exception) {
+			Exception.log(result.error);
+			return;
+		}
+		
+		return result.value.value;
 	}
 }
