@@ -33,5 +33,9 @@ module.exports.tokens = enumerate(
 );
 
 module.exports.getTokenName = function(value) {
-	return Object.keys(module.exports.tokens).find(key => module.exports.tokens[key] === value)
+	return String(Object.keys(module.exports.tokens).find(key => module.exports.tokens[key] === value)).split('_')[1];
+}
+
+module.exports.match = function(token, type, value) {
+	return token.type === type && token.value === value;
 }
