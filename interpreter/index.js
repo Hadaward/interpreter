@@ -1,16 +1,25 @@
 const Lexer = require('./lexer');
+const Parser = require('./parser');
 const Exception = require('./exception');
 
 module.exports = {
 	run: function(inputText) {
 		const lex = new Lexer(inputText);
-		const result = lex.analysis();
+		const lexerResult = lex.analysis();
 		
-		if (result instanceof Exception) {
-			console.error(result.toString());
+		if (lexerResult instanceof Exception) {
+			Exception.log(lexerResult);
 			return;
 		}
 		
+		const parser = new Parser(lexerResult);
+		const parserResult = parser.parse();
 		
+		if (parserResult instanceof Exception) {
+			Exception.log(parserResult);
+			return;
+		}
+		
+		console.log(parserResult)
 	}
 }
