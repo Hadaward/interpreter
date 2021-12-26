@@ -2,7 +2,7 @@ import {RuntimeError} from './exception.js';
 
 const number = class {
 	constructor(value) {
-		this.value = value;
+		this.value = value.toFixed(10);
 		this.set_position();
 		this.set_context();
 	}
