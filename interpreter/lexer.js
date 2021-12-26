@@ -77,9 +77,6 @@ module.exports = class {
 					case "^":
 						tokens.push(Token.create(Token.tokens.TK_POW, null, this.position));
 						break;
-					case "=":
-						tokens.push(Token.create(Token.tokens.TK_EQUALS, null, this.position));
-						break;
 					case "(":
 						tokens.push(Token.create(Token.tokens.TK_LPAREN, null, this.position));
 						break;
