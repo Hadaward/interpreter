@@ -1,4 +1,4 @@
-module.exports = class {
+const position = class {
 	constructor(index, lineNumber, columnNumber, inputText) {
 		this.index = index;
 		this.lineNumber = lineNumber;
@@ -19,6 +19,8 @@ module.exports = class {
 	}
 	
 	copy() {
-		return new module.exports(this.index, this.lineNumber, this.columnNumber, this.inputText);
+		return new position(this.index, this.lineNumber, this.columnNumber, this.inputText);
 	}
 }
+
+export default position;

@@ -1,4 +1,4 @@
-module.exports = class {
+export default class {
 	constructor(name, parent, parent_entry_pos) {
 		this.name = name;
 		this.parent = parent;

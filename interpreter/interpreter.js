@@ -1,8 +1,8 @@
-const Token = require('./token');
-const Number = require('./number');
-const Exception = require('./exception');
+import Token from './token.js';
+import Number from './number.js';
+import Exception from './exception.js';
 
-module.exports = class {
+const interpreter = class {
 	visit(node, context) {
 		const method_name = `visit_${Token.getTokenName(node.type)}`;
 		const method = this[method_name] || this.no_visit_method;
@@ -16,11 +16,11 @@ module.exports = class {
 	}
 	
 	visit_NUMBER(node, context) {
-		return new module.exports.result().success(new Number(node.token.value).set_context(context).set_position(node.position_start, node.position_end));
+		return new interpreter.result().success(new Number(node.token.value).set_context(context).set_position(node.position_start, node.position_end));
 	}
 	
 	visit_BINOPR(node, context) {
-		const result = new module.exports.result();
+		const result = new interpreter.result();
 		
 		const left = result.register(this.visit(node.left, context));
 		
@@ -45,7 +45,7 @@ module.exports = class {
 	}
 	
 	visit_UNARYOPR(node, context) {
-		const result = new module.exports.result();
+		const result = new interpreter.result();
 		
 		let number = result.register(this.visit(node.node, context));
 		
@@ -65,7 +65,7 @@ module.exports = class {
 	}
 }
 
-module.exports.result = class {
+interpreter.result = class {
 	constructor() {
 		this.value = null;
 		this.error = null;
@@ -90,3 +90,5 @@ module.exports.result = class {
 		return this;
 	}
 }
+
+export default interpreter;

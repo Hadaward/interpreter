@@ -1,4 +1,4 @@
-module.exports = class {
+const exception = class {
 	constructor(name, pos_start, pos_end, details) {
 		this.name = name
 		this.details = details
@@ -11,19 +11,19 @@ module.exports = class {
 	}
 }
 
-module.exports.IllegalCharError = class extends module.exports {
+exception.IllegalCharError = class extends exception {
 	constructor(pos_start, pos_end, details) {
 		super("Illegal Character", pos_start, pos_end, details);
 	}
 }
 
-module.exports.InvalidSyntaxError = class extends module.exports {
+exception.InvalidSyntaxError = class extends exception {
 	constructor(pos_start, pos_end, details) {
 		super("Invalid Syntax", pos_start, pos_end, details);
 	}
 }
 
-module.exports.RuntimeError = class extends module.exports {
+exception.RuntimeError = class extends exception {
 	constructor(pos_start, pos_end, details, context) {
 		super("Runtime Error", pos_start, pos_end, details);
 		this.context = context;
@@ -48,8 +48,14 @@ module.exports.RuntimeError = class extends module.exports {
 	}
 }
 
-module.exports.log = function(exception) {
-	if (exception instanceof module.exports) {
-		console.error(exception.toString());
+exception.log = function(value) {
+	if (value instanceof exception) {
+		throw value.toString();
 	}
 } 
+
+export const InvalidSyntaxError = exception.InvalidSyntaxError;
+export const IllegalCharError = exception.IllegalCharError;
+export const RuntimeError = exception.RuntimeError;
+export const log = exception.log;
+export default exception;

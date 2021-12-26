@@ -1,7 +1,7 @@
-const Token = require('./token');
-const {InvalidSyntaxError} = require('./exception');
+import Token from './token.js';
+import {InvalidSyntaxError} from './exception.js';
 
-module.exports = class {
+const parser = class {
 	constructor(tokens) {
 		this.position = -1;
 		this.tokens = tokens;
@@ -16,7 +16,7 @@ module.exports = class {
 	}
 	
 	factor() {
-		const result = new module.exports.result();
+		const result = new parser.result();
 
 		const token = this.currentToken;
 		
@@ -64,7 +64,7 @@ module.exports = class {
 	}
 	
 	binopr(callback, ops) {
-		const result = new module.exports.result();
+		const result = new parser.result();
 		
 		let left = result.register(callback.apply(this, []));
 		
@@ -109,14 +109,14 @@ module.exports = class {
 	}
 }
 
-module.exports.result = class {
+parser.result = class {
 	constructor() {
 		this.error = null;
 		this.node = null;
 	}
 	
 	register(value) {
-		if (value instanceof module.exports.result) {
+		if (value instanceof parser.result) {
 			if (value.error != null) {
 				this.error = value.error;
 			}
@@ -136,3 +136,5 @@ module.exports.result = class {
 		return this;
 	}
 }
+
+export default parser;

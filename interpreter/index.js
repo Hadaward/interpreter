@@ -1,10 +1,10 @@
-const Lexer = require('./lexer');
-const Parser = require('./parser');
-const Context = require('./context');
-const Exception = require('./exception');
-const Interpreter = require('./interpreter');
+import Lexer from './lexer.js';
+import Parser from './parser.js';
+import Context from './context.js';
+import Exception from './exception.js';
+import Interpreter from './interpreter.js';
 
-module.exports = {
+const interpreter = {
 	run: function(inputText) {
 		const lex = new Lexer(inputText);
 		const lexerResult = lex.analysis();
@@ -35,3 +35,5 @@ module.exports = {
 		return result.value.value;
 	}
 }
+
+export default interpreter;

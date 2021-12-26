@@ -1,6 +1,6 @@
-const {RuntimeError} = require('./exception');
+import {RuntimeError} from './exception.js';
 
-module.exports = class {
+const number = class {
 	constructor(value) {
 		this.value = value;
 		this.set_position();
@@ -19,35 +19,35 @@ module.exports = class {
 	}
 	
 	ADD(other) {
-		if (other instanceof module.exports) {
-			return new module.exports(this.value + other.value).set_context(this.context);
+		if (other instanceof number) {
+			return new number(this.value + other.value).set_context(this.context);
 		}
 	}
 	
 	SUB(other) {
-		if (other instanceof module.exports) {
-			return new module.exports(this.value - other.value).set_context(this.context);
+		if (other instanceof number) {
+			return new number(this.value - other.value).set_context(this.context);
 		}
 	}
 	
 	MUL(other) {
-		if (other instanceof module.exports) {
-			return new module.exports(this.value * other.value).set_context(this.context);
+		if (other instanceof number) {
+			return new number(this.value * other.value).set_context(this.context);
 		}
 	}
 	
 	DIV(other) {
-		if (other instanceof module.exports) {
+		if (other instanceof number) {
 			if (other.value == 0) {
 				return new RuntimeError(other.position_start, other.position_end, "Division by zero", this.context);
 			}
-			return new module.exports(this.value / other.value).set_context(this.context);
+			return new number(this.value / other.value).set_context(this.context);
 		}
 	}
 	
 	POW(other) {
-		if (other instanceof module.exports) {
-			return new module.exports(this.value ** other.value).set_context(this.context);
+		if (other instanceof number) {
+			return new number(this.value ** other.value).set_context(this.context);
 		}
 	}
 	
@@ -55,3 +55,5 @@ module.exports = class {
 		return String(this.value);
 	}
 }
+
+export default number;

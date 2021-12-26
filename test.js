@@ -1,4 +1,19 @@
-const interpreter = require('./interpreter');
+import interpreter from "./interpreter/index.js";
 
-const result = interpreter.run(`24* 6 - 2`);
-console.log(result);
+const expression = document.querySelector('#expression');
+const result = document.querySelector('#result');
+
+expression.addEventListener('input', function() {
+	if (expression.value.length === 0) {
+		result.innerText = "";
+		return;
+	}
+	
+	try {
+		result.innerText = interpreter.run(expression.value);
+		result.className = "success";
+	} catch(error) {
+		result.innerText = error;
+		result.className = "error";
+	}
+})

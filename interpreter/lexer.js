@@ -1,10 +1,10 @@
-const {IllegalCharError} = require('./exception');
-const Position = require('./position');
-const Token = require('./token');
+import {IllegalCharError} from './exception.js';
+import Position from './position.js';
+import Token from './token.js';
 
-const {DIGITS} = require('./utils');
+import {DIGITS} from './utils.js';
 
-module.exports = class {
+export default class {
 	constructor(inputText) {
 		this.inputText = typeof inputText === "string" ? inputText : "";
 		this.position = new Position(-1, 0, -1, this.inputText);
